@@ -1,0 +1,44 @@
+{% extends "base/base.twig" %}
+
+{% block css %}
+    <style>
+        div {
+            margin: 10px;
+        }
+
+        input, select {
+            display: block;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .submit {
+            text-align: center;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <form method="POST" action="{{isCreate ? '/insert' : '/update/' ~ unicorn.id}}">
+        <div>
+            <input id="name" name="name" type="text" placeholder="Name" value="{{unicorn.name}}" required />
+        </div>
+        <div>
+            <input id="age" name="age" type="text" placeholder="Age" value="{{unicorn.age}}" required />
+        </div>
+
+        <div>
+            <input id="color" name="color" type="text" placeholder="Color" value="{{unicorn.color}}" required />
+        </div>
+        <div>
+            <select id="owner" name="owner" multiple>
+                {% for owner in owners %}
+                    <option value="{{owner.id}}" {% if unicorn.owners[owner.id] %}selected{% endif %}>{{owner.name}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="submit">
+            <button>Save</button>
+        </div>
+    </form>
+{% endblock %}

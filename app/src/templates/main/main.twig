@@ -1,0 +1,23 @@
+{% extends "base/base.twig" %}
+
+{% block content %}
+    <h1>My Unicorns</h1>
+    <a href="/create">New Unicorn</a>
+    {% if unicorns|length == 0 %}
+        <h2>No unicorns exist! Press New Unicorn above to add one.</h2>
+    {% endif %}
+    {% for unicorn in unicorns %}
+        <div class="item">
+            <h3>{{unicorn.name}}</h3>
+            <div>{{unicorn.age}} years</div>
+            <div>Color: {{unicorn.color}}</div>
+            <div>Owners:</div>
+            <div>
+                {% for owner in unicorn.owners %}
+                    <div>{{ owner.name }}, {{ owner.email }}</div>
+                {% endfor %}
+            </div>
+            <a href="/edit/{{unicorn.id}}">Edit</a>
+        </div>
+    {% endfor %}
+{% endblock %}
